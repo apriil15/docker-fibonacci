@@ -21,10 +21,10 @@ services:
       - WDS_SOCKET_PORT=0
   api:
     build:
-      context: ./server
+      context: ./api
       dockerfile: Dockerfile.dev
     volumes:
-      - ~/project/complex/server:/app
+      - ~/project/complex/api:/app
     environment:
       # variable not give name -> take from computer
       - REDIS_HOST=redis
