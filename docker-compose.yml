@@ -1,52 +1,31 @@
 version: "3.4"
 services:
   nginx:
-    depends_on:
-      - api
-      - client
-    restart: always
-    build:
-      dockerfile: Dockerfile.dev
-      context: ./nginx
+    image: "nlwkobe30/comoplex-nginx"
+    hostname: nginx
+    mem_limit: 128m
     ports:
-      - '3050:80'
+      - "80:80"
   client:
-    stdin_open: true
-    build:
-      context: ./client
-      dockerfile: Dockerfile.dev
-    volumes:
-      - ~/project/complex/client:/app
-    environment:
-      - WDS_SOCKET_PORT=0
+    image: "nlwkobe30/comoplex-client"
+    hostname: client
+    mem_limit: 128m
   api:
-    build:
-      context: ./api
-      dockerfile: Dockerfile.dev
-    volumes:
-      - ~/project/complex/api:/app
+    image: "nlwkobe30/comoplex-api"
+    hostname: api
+    mem_limit: 128m
     environment:
-      # if variable not given value -> take from computer
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-
-      - PG_USER=postgres
-      - PG_HOST=postgres
-      - PG_DATABASE=postgres
-      - PG_PASSWORD=password
-      - PG_PORT=5432
+      - REDIS_HOST=$REDIS_HOST
+      - REDIS_PORT=$REDIS_PORT
+      - PG_USER=$PG_USER
+      - PG_HOST=$PG_HOST
+      - PG_DATABASE=$PG_DATABASE
+      - PG_PASSWORD=$PG_PASSWORD
+      - PG_PORT=$PG_PORT
   worker:
-    build:
-      context: ./worker
-      dockerfile: Dockerfile.dev
-    volumes:
-      - ~/project/complex/worker:/app
+    image: "nlwkobe30/comoplex-worker"
+    hostname: worker
+    mem_limit: 128m
     environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-  postgres:
-    image: postgres:latest
-    environment:
-      - POSTGRES_PASSWORD=password
-  redis:
-    image: redis:latest
+      - REDIS_HOST=$REDIS_HOST
+      - REDIS_PORT=$REDIS_PORT

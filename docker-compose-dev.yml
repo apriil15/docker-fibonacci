@@ -1,0 +1,52 @@
+version: "3.4"
+services:
+  nginx:
+    depends_on:
+      - api
+      - client
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - '3050:80'
+  client:
+    stdin_open: true
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ~/project/complex/client:/app
+    environment:
+      - WDS_SOCKET_PORT=0
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ~/project/complex/api:/app
+    environment:
+      # if variable not given value -> take from computer
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+
+      - PG_USER=postgres
+      - PG_HOST=postgres
+      - PG_DATABASE=postgres
+      - PG_PASSWORD=password
+      - PG_PORT=5432
+  worker:
+    build:
+      context: ./worker
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ~/project/complex/worker:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+  postgres:
+    image: postgres:latest
+    environment:
+      - POSTGRES_PASSWORD=password
+  redis:
+    image: redis:latest
