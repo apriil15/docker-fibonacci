@@ -22,14 +22,14 @@ jobs:
         run: |
           docker build -t nlwkobe30/complex-nginx ./nginx
           docker build -t nlwkobe30/complex-client ./client
-          docker build -t nlwkobe30/complex-server ./server
+          docker build -t nlwkobe30/complex-api ./api
           docker build -t nlwkobe30/complex-worker ./worker
 
       - name: push docker hub
         run: |
           docker push nlwkobe30/complex-nginx
           docker push nlwkobe30/complex-client
-          docker push nlwkobe30/complex-server
+          docker push nlwkobe30/complex-api
           docker push nlwkobe30/complex-worker
 
       # - name: Generate deployment package
