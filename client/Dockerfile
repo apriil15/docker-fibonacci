@@ -11,7 +11,7 @@ COPY . .
 
 RUN npm run build
 
-# step2 serve
+# step2: serve at nginx
 FROM nginx
 
 EXPOSE 3000
