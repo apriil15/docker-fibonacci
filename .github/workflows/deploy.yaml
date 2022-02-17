@@ -32,17 +32,18 @@ jobs:
           docker push nlwkobe30/complex-api
           docker push nlwkobe30/complex-worker
 
-      - name: Generate deployment package
-        run: zip -r deploy.zip . -x '*.git*'
+      # comment: cuz AWS services are closed for not using now
+      # - name: Generate deployment package
+      #   run: zip -r deploy.zip . -x '*.git*'
 
-      - name: Deploy to EB
-        uses: einaregilsson/beanstalk-deploy@v20
-        with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
-          application_name: docker-fibonacci
-          environment_name: Dockerfibonacci-env
-          existing_bucket_name: elasticbeanstalk-ap-northeast-2-618192245074
-          region: ap-northeast-2
-          version_label: ${{ github.sha }}
-          deployment_package: deploy.zip
+      # - name: Deploy to EB
+      #   uses: einaregilsson/beanstalk-deploy@v20
+      #   with:
+      #     aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+      #     aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+      #     application_name: docker-fibonacci
+      #     environment_name: Dockerfibonacci-env
+      #     existing_bucket_name: elasticbeanstalk-ap-northeast-2-618192245074
+      #     region: ap-northeast-2
+      #     version_label: ${{ github.sha }}
+      #     deployment_package: deploy.zip
