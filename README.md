@@ -4,12 +4,12 @@
 
 ### Production
 
-![production-system-design](./production-system-design.png)
+![production-system-design](./image/production-system-design.png)
 
 ### Development
 
-![develop](./develop.png)
+![develop](./image/develop.png)
 
 ## CICD Workflow
 
-![workflow](./workflow.png)
+![workflow](./image/workflow.png)
