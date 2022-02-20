@@ -16,7 +16,7 @@ services:
       context: ./client
       dockerfile: Dockerfile.dev
     volumes:
-      - ~/project/complex/client:/app
+      - ./client:/app
     environment:
       - WDS_SOCKET_PORT=0
   api:
@@ -24,7 +24,7 @@ services:
       context: ./api
       dockerfile: Dockerfile.dev
     volumes:
-      - ~/project/complex/api:/app
+      - ./api:/app
     environment:
       # if variable not given value -> take from computer
       - REDIS_HOST=redis
@@ -40,7 +40,7 @@ services:
       context: ./worker
       dockerfile: Dockerfile.dev
     volumes:
-      - ~/project/complex/worker:/app
+      - ./worker:/app
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
